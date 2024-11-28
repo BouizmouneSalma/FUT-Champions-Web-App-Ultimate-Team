@@ -1,0 +1,80 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    display: flex;
+}
+
+header {
+    background-color: #2a2a2a;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+.sidebar {
+    background-color: #2a2a2a;
+    color: #fff;
+    padding: 20px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar label,
+.sidebar button,
+.sidebar select,
+.sidebar input {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+main {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('Teraine.webp');
+    background-size: cover;
+    background-position: center;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 80%;
+    max-width: 800px;
+    margin-top: 20px;
+}
+
+.player-card {
+    background-color: #ffffff;
+    border: 2px solid #333;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+}
+
+.player-card img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.remove-player {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: red;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.team-section h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}

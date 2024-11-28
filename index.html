@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FUT Team Builder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            display: flex;
+        }
+
+        header {
+            background-color: #2a2a2a;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .burger-menu {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #2a2a2a;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            width: 250px;
+            background-color: #c4bfbf;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: left 0.3s ease;
+            z-index: 1;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar label,
+        .sidebar button,
+        .sidebar select,
+        .sidebar input {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .player-form {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .teraine {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: url('Teraine.webp');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .player-card img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .remove-player {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: red;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .team-section h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="burger-menu">
+        add new player +
+    </div>
+    <div class="sidebar" id="sidebar">
+        <h1>eFootball</h1>
+        <label for="teamName">Name:</label>
+        <input type="text" id="teamName" name="teamName">
+        <label for="formation">Lineup:</label>
+        <select id="formation">
+            <option value="4-3-3">4-3-3</option>
+            <option value="4-4-2">4-4-2</option>
+        </select>
+        <button id="loginButton">Log in to save</button>
+        <button id="downloadButton">Download image</button>
+        <button id="createButton">Create new</button>
+        
+        <div class="player-form" id="playerForm">
+            <h3>Add New Player</h3>
+            <label for="playerName">Player Name:</label>
+            <input type="text" id="playerName" name="playerName">
+            <label for="playerPosition">Position:</label>
+            <select id="playerPosition">
+                <option value="Goalkeeper">Goalkeeper</option>
+                <option value="Defender">Defender</option>
+                <option value="Midfielder">Midfielder</option>
+                <option value="Forward">Forward</option>
+            </select>
+            <button onclick="addPlayer()">Add Player</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="Team">
+            <section class="teraine">
+                <h2>Your Team</h2>
+                <div id="teamGrid" class="team-grid">
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

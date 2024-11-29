@@ -89,47 +89,47 @@ header {
 }
 
 #GK-container {
-    top: 410px;
+    top: 480px;
     left: 45%;
 }
 
 #CB1-container {
-    top: 280px;
+    top: 380px;
     left: 29%;
 }
 
 #CB2-container {
-    top: 280px;
+    top: 380px;
     left: 60%;
 }
 
 #LB-container {
-    top: 280px;
+    top: 380px;
     left: 8%;
 }
 
 #RB-container {
-    top: 280px;
+    top: 380px;
     left: 80%;
 }
 
 #CM1-container {
-    top: 150px;
+    top: 180px;
     left: 29%;
 }
 
 #CM2-container {
-    top: 150px;
+    top: 180px;
     left: 60%;
 }
 
 #CM3-container {
-    top: 150px;
+    top: 180px;
     left: 80%;
 }
 
 #LW-container {
-    top: 150px;
+    top: 180px;
     left: 7%;
 }
 
@@ -286,7 +286,7 @@ header {
 
 .add-player-modal .modal-content {
     background-color: rgb(255, 255, 255);
-    width: 25%;
+    width: 40%;
     margin: 20px;
     padding: 20px 20px 20px 20px;
     border-radius: 10px;
@@ -323,7 +323,6 @@ header {
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
-    width: 320px;
     border: 1px solid #ddd;
 }
 
@@ -340,7 +339,7 @@ header {
 }
 .player-image {
     top: 25%;
-    width: 800px !important; 
+    width: 800px; 
 }
 
 /* responsive */

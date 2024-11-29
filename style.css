@@ -1,80 +1,406 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
-    display: flex;
-}
-
-header {
-    background-color: #2a2a2a;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-}
-
-.sidebar {
-    background-color: #2a2a2a;
-    color: #fff;
-    padding: 20px;
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-}
-
-.sidebar label,
-.sidebar button,
-.sidebar select,
-.sidebar input {
-    margin-bottom: 10px;
-    width: 100%;
-}
-
-main {
-    padding: 20px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-image: url('Teraine.webp');
+    background-image: url("images/background.jpg");
+    background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    margin: 0;
+    padding: 0;
 }
 
-.team-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    width: 80%;
-    max-width: 800px;
-    margin-top: 20px;
-}
-
-.player-card {
-    background-color: #ffffff;
-    border: 2px solid #333;
-    padding: 15px;
-    text-align: center;
-    position: relative;
-}
-
-.player-card img {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 10px;
-}
-
-.remove-player {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: red;
-    color: #fff;
-    border: none;
+.btn {
+    background-color: rgb(36, 36, 38);
+    color: white;
+    border-radius: 3px;
+    border: 0;
+    padding: 3px;
+    margin-right: 60px;
     cursor: pointer;
 }
 
-.team-section h2 {
-    text-align: center;
-    margin-bottom: 10px;
+header {
+    background-color: rgba(0, 0, 0, 0.339);
+    padding: 20px;
+    width: 100%;
+    height: 5%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: white;
+    font-size: large;
+    z-index: 1;
 }
+
+#logo {
+    width: 160px;
+    height: 50px;
+}
+
+.head {
+    display: flex;
+    gap: 350px;
+}
+
+.cont {
+    display: flex;
+    margin-top: 60px;
+    /* gap: 90px; */
+}
+
+.terrain {
+    width: 70%;
+    position: relative;
+}
+
+.terrain img {
+    max-width: 100%;
+    height: 95%;
+    width: 100%;
+}
+
+.team-name {
+    position: absolute;
+    top: 20px;
+    left: 70px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.player-container {
+    position: absolute;
+    width: 100px;
+    height: 110px;
+    cursor: pointer;
+}
+
+.player-container img {
+    width: 100%;
+    margin: auto;
+    display: block;
+    height: 100%;
+    box-shadow: 20px;
+}
+
+.player-container img:last-child {
+    width: auto !important;
+}
+
+#GK-container {
+    top: 410px;
+    left: 45%;
+}
+
+#CB1-container {
+    top: 280px;
+    left: 29%;
+}
+
+#CB2-container {
+    top: 280px;
+    left: 60%;
+}
+
+#LB-container {
+    top: 280px;
+    left: 8%;
+}
+
+#RB-container {
+    top: 280px;
+    left: 80%;
+}
+
+#CM1-container {
+    top: 150px;
+    left: 29%;
+}
+
+#CM2-container {
+    top: 150px;
+    left: 60%;
+}
+
+#CM3-container {
+    top: 150px;
+    left: 80%;
+}
+
+#LW-container {
+    top: 150px;
+    left: 7%;
+}
+
+#RW-container {
+    top: 0px;
+    left: 55%;
+}
+
+#ST-container {
+    top: 0px;
+    left: 29%;
+}
+
+.chang {
+    background-color: black;
+    border-radius: 20px;
+    opacity: 0.8;
+    height: 500px;
+    padding: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+
+.card-container {
+    position: relative;
+    width: 100px;
+    height: 130px;
+    box-shadow: 20px;
+}
+
+.card-container img {
+    width: 100%;
+    height: 100%;
+    box-shadow: 20px;
+}
+
+.plus {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 70px;
+    max-height: 70px;
+    opacity: 0.8;
+    cursor: pointer;
+}
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0; 
+    background-color: rgba(74, 24, 120, 0.5); 
+    justify-content: center;
+    align-items: center; 
+}
+
+.modal-content {
+    background-color: rgb(255, 255, 255); 
+    width: 80%; 
+    max-height: 70%; 
+    margin: 20px; 
+    padding: 20px; 
+    border-radius: 10px; 
+    overflow-y: auto; 
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 30px; 
+}
+
+.player-card {
+    background-color: #ffffff; 
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.2s; 
+}
+
+.player-card:hover {
+    transform: scale(1.05); 
+    background-color: rgb(83, 12, 238);
+    border-color: yellow;
+}
+
+.player-card img {
+    width: 100%;
+}
+
+.player-card h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.player-card p {
+    margin: 5px 0;
+    color: #666;
+}
+.player-card p:hover{
+    color: white;
+}
+
+.player-card .stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.player-card .stats div {
+    text-align: center;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.place {
+    color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+}
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 10px;
+    width:90%;
+    max-width: 90%;
+    text-align: center;
+}
+/* form  */
+
+
+.player-card .stats div {
+    text-align: center;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.add-player-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(74, 24, 120, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.add-player-modal .modal-content {
+    background-color: rgb(255, 255, 255);
+    width: 25%;
+    margin: 20px;
+    padding: 20px 20px 20px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.close-add-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.close-add-modal:hover {
+    background-color: darkred;
+}
+
+#playerForm label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#playerForm input,
+#playerForm button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    width: 320px;
+    border: 1px solid #ddd;
+}
+
+#playerForm button {
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#playerForm button:hover {
+    background-color: darkblue;
+}
+.player-image {
+    top: 25%;
+    width: 800px !important; 
+}
+
+/* responsive */
+
+@media screen and (max-width: 768px) {
+    .cont {
+        display: grid;
+        grid-template-columns: 3fr;
+        margin-top: 20px;
+        gap: 30px;
+    }
+
+    .terrain {
+        width: 100%;
+        margin-top: 10%;
+
+    }
+
+    .chang {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .team-name {
+        font-size: 18px;
+    }
+
+    .player-container {
+        width: 80px;
+        height: 110px;
+    }
+
+    .card-container {
+        width: 80px;
+        height: 100px;
+    }
+
+    .chang {
+        display: grid;
+        grid-template-columns:repeat(4,1fr);
+        width: 468px;
+        /* padding: 10px; */
+        flex-wrap: wrap;
+    }
+    .modal-content {
+            width: 90%;
+            max-width: 90%;
+            height: auto;
+        }
+    
+        .player-card {
+            font-size: 0.8em;
+        }
+    
+    
+}
+

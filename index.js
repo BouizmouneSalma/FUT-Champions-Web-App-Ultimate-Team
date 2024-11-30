@@ -174,4 +174,29 @@ playerForm.addEventListener("submit", (event) => {
     addPlayerModal.style.display = "none";
 });
 
+// Charger les joueurs déjà enregistrés dans localStorage
+ fetchPlayers = async () => {
+    try {
+        // Récupérer les joueurs de l'API
+        const response = await fetch("https://fut.codia-dev.com/players.json");
+        if (!response.ok) {
+            throw new Error("Erreur lors de la récupération des joueurs");
+        }
+        const apiData = await response.json();
+
+        // Récupérer les joueurs locaux
+        const localPlayers = JSON.parse(localStorage.getItem("players")) || [];
+
+        // Combiner les deux listes
+        return apiData.players.concat(localPlayers);
+    } catch (error) {
+        console.error("Erreur :", error);
+        alert("Impossible de récupérer les joueurs. Veuillez réessayer.");
+        return JSON.parse(localStorage.getItem("players")) || []; // Retourne uniquement les joueurs locaux en cas d'échec
+    }
+};
+const loadPlayers = async () => {
+    const players = await fetchPlayers();
+    displayPlayersInModal(players); // Actualisez le modal
+};
 });

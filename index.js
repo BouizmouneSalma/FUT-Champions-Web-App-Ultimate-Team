@@ -150,6 +150,28 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("players", JSON.stringify(storedPlayers));
         console.log("Joueur ajouté à localStorage:", player);
     };
+// Ajouter un joueur avec les données du formulaire
+playerForm.addEventListener("submit", (event) => {
+    event.preventDefault();
 
+    // Récupérer les données du formulaire
+    const formData = new FormData(playerForm);
+    const newPlayer = {};
+    formData.forEach((value, key) => {
+        newPlayer[key] = value;
+    });
+
+    console.log("Nouveau joueur ajouté :", newPlayer);
+
+    // Sauvegarder le joueur dans localStorage
+    addPlayerToLocalStorage(newPlayer);
+
+    // Mettre à jour l'affichage des joueurs
+    loadPlayers();
+
+    // Réinitialiser le formulaire et fermer la modale
+    playerForm.reset();
+    addPlayerModal.style.display = "none";
+});
 
 });

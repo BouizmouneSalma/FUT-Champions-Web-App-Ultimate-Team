@@ -3,10 +3,13 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    width: 100%;
     margin: 0;
     padding: 0;
 }
-
+.mini-head{
+    width: 80%;
+}
 .btn {
     background-color: rgb(36, 36, 38);
     color: white;
@@ -37,13 +40,13 @@ header {
 
 .head {
     display: flex;
-    gap: 350px;
+    justify-content: space-evenly;
 }
 
 .cont {
     display: flex;
     margin-top: 60px;
-    /* gap: 90px; */
+    gap: 300px;
 }
 
 .terrain {
@@ -89,47 +92,47 @@ header {
 }
 
 #GK-container {
-    top: 480px;
+    top: 70%;
     left: 45%;
 }
 
 #CB1-container {
-    top: 380px;
+    top: 50%;
     left: 29%;
 }
 
 #CB2-container {
-    top: 380px;
+    top: 50%;
     left: 60%;
 }
 
 #LB-container {
-    top: 380px;
+    top: 50%;
     left: 8%;
 }
 
 #RB-container {
-    top: 380px;
+    top: 50%;
     left: 80%;
 }
 
 #CM1-container {
-    top: 180px;
+    top: 25%;
     left: 29%;
 }
 
 #CM2-container {
-    top: 180px;
+    top: 25%;
     left: 60%;
 }
 
 #CM3-container {
-    top: 180px;
+    top: 25%;
     left: 80%;
 }
 
 #LW-container {
-    top: 180px;
+    top: 25%;
     left: 7%;
 }
 
@@ -197,6 +200,18 @@ header {
     overflow-y: auto; 
     display: grid;
     grid-template-columns: repeat(4, 1fr); 
+    gap: 30px; 
+}
+.modal-content-form {
+    background-color: rgb(255, 255, 255); 
+    width: 80%; 
+    max-height: 70%; 
+    margin: 20px; 
+    padding: 20px; 
+    border-radius: 10px; 
+    overflow-y: auto; 
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); 
     gap: 30px; 
 }
 
@@ -268,7 +283,6 @@ header {
 }
 /* form  */
 
-
 .player-card .stats div {
     text-align: center;
     font-size: 0.9em;
@@ -279,7 +293,7 @@ header {
     display: none;
     position: fixed;
     inset: 0;
-    background-color: rgba(74, 24, 120, 0.5);
+    background-color: rgba(42, 40, 44, 0.5);
     justify-content: center;
     align-items: center;
 }
@@ -319,7 +333,7 @@ header {
 
 #playerForm input,
 #playerForm button {
-    width: 100%;
+    width: 98%;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -349,7 +363,7 @@ header {
         display: grid;
         grid-template-columns: 3fr;
         margin-top: 20px;
-        gap: 30px;
+        gap: 95px;
     }
 
     .terrain {
@@ -359,7 +373,6 @@ header {
     }
 
     .chang {
-        width: 100%;
         height: auto;
         padding: 20px;
         display: grid;
@@ -386,8 +399,6 @@ header {
     .chang {
         display: grid;
         grid-template-columns:repeat(4,1fr);
-        width: 468px;
-        /* padding: 10px; */
         flex-wrap: wrap;
     }
     .modal-content {

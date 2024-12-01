@@ -181,3 +181,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Récupérer les joueurs depuis l'API et les stocker dans le localStorage au chargement de la page
     await fetchAndStorePlayers();
 });
+

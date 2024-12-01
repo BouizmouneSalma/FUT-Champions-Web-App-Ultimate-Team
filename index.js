@@ -1,23 +1,27 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     // Éléments du input element
     const button = document.querySelector(".btn");
     const teamNameInput = document.getElementById("teamName");
     const teamNameDisplay = document.getElementById("tName");
-    // Écouteur d'événement pour changer le nom d'équipe au clic sur le bouton
-    button.addEventListener("click", () => {
-        const val = teamNameInput.value.trim();
-        if (val !== "") {
-            teamNameDisplay.textContent = val;
-        } else {
-            alert("Veuillez entrer un nom d'équipe.");
-        }
-    });
-
+   
     // Éléments du modal
     const modal = document.getElementById("playerModal");
     const modalContent = modal.querySelector(".modal-content");
     const playerContainers = document.querySelectorAll(".player-container");
-    let fetchPlayers = async () => {
+    const addPlayerModal = document.querySelector(".add-player-modal");
+    const playerForm = document.getElementById("playerForm");
+    const plusPlayerModal = document.getElementsByClassName("plus");
+    const addPlayerButton = document.getElementById("ajout");
+    
+    // Fonction pour gérer les erreurs de chargement des images
+    const handleImageError = (img, fallbackUrl) => {
+        img.onerror = () => {
+            img.src = fallbackUrl;
+        };
+    };
+
+    // Fonction pour récupérer les joueurs depuis l'API et les stocker dans le localStorage
+    const fetchAndStorePlayers = async () => {
         try {
             const response = await fetch("https://fut.codia-dev.com/players.json");
             if (!response.ok) {
@@ -25,24 +29,31 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             const data = await response.json();
             console.log("Players fetched successfully:", data.players);
-            return data.players;
+            localStorage.setItem("players", JSON.stringify(data.players));
         } catch (error) {
             console.error("Erreur :", error);
-            alert("Impossible de récupérer les joueurs Veuillez réessayer.");
+            alert("Impossible de récupérer les joueurs. Veuillez réessayer.");
         }
     };
-    // Fonction pour afficher les joueurs dans le modal 
+
+    // Fonction pour récupérer les joueurs depuis le localStorage
+    const getPlayersFromLocalStorage = () => {
+        const localPlayers = JSON.parse(localStorage.getItem("players")) || [];
+        console.log("Players from localStorage:", localPlayers);
+        return localPlayers;
+    };
+
+    // Fonction pour afficher les joueurs dans le modal
     const displayPlayersInModal = (players, positionFilter = null) => {
         modalContent.innerHTML = "";
-        // console.log("Displaying players in modal");
+
         let filteredPlayers;
         if (positionFilter) {
             filteredPlayers = players.filter((player) => player.position === positionFilter);
         } else {
             filteredPlayers = players;
         }
-        // console.log("lenght of ");
-        // console.log(filteredPlayers);
+
         if (filteredPlayers.length === 0) {
             modalContent.innerHTML = "<p>Aucun joueur disponible pour cette position.</p>";
         } else {
@@ -50,27 +61,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 const playerCard = document.createElement("div");
                 playerCard.classList.add("player-card");
                 playerCard.innerHTML = `
-                    <img src="${player.photo || 'images/placeholder-card-normal.webp'}" alt="${player.name || 'Sans nom'}">
-                    <h3>${player.name || 'Nom inconnu'}</h3>
-                    <p>Position: ${player.position || 'Position inconnue'}</p>
-                    <p>Club: <img src="${player.logo || 'images/placeholder-logo.png'}" alt="${player.club || 'Club inconnu'}" style="width: 20px;"> ${player.club || 'Inconnu'}</p>
-                    <p>Nationalité: <img src="${player.flag || 'images/placeholder-flag.png'}" alt="${player.nationality || 'Nationalité inconnue'}" style="width: 20px;"> ${player.nationality || 'Inconnue'}</p>
+                    <img src="${player.photo || 'images/img1.png'}" alt="${player.name || 'Sans nom'}">
+                    <h3>${player.name || 'Oussama' || 'Modritch'}</h3>
+                    <p>Position: ${player.position || 'ST'}</p>
+                    <p>Club: <img src="${player.logo || 'images/ar.webp'}" alt="${player.club || 'Club inconnu'}" style="width: 20px;"> ${player.club || 'Inconnu'}</p>
+                    <p>Nationalité: <img src="${player.flag || 'images/ar.webp'}" alt="${player.nationality || 'Nationalité inconnue'}" style="width: 20px;"> ${player.nationality || 'Inconnue'}</p>
                     <p>Note: ${player.rating || 'Non noté'}</p>
                 `;
 
+                // Gérer les erreurs de chargement des images
+                playerCard.querySelectorAll('img').forEach((img) => {
+                    handleImageError(img, img.alt.includes('flag') ? './images/placeholder-flag.png' : './images/placeholder-logo.png');
+                });
                 // Ajouter un événement de clic pour sélectionner le joueur
                 playerCard.addEventListener("click", () => {
                     console.log("Player selected:", player.name);
                     assignPlayerToField(player);
-                    modal.style.display = "none"; // Fermer le modal apres la sélection
+                    modal.style.display = "none"; // Fermer le modal après la sélection
                 });
                 modalContent.appendChild(playerCard);
             });
         }
     };
-    // Fonction pour assigner un joueur a terrain
+
+    // Fonction pour assigner un joueur au terrain
     const assignPlayerToField = (player) => {
-        // console.log("Assigning player to field:", player.name);
         const selectedContainer = document.querySelector(".player-container.selected");
         if (selectedContainer) {
             const playerImage = selectedContainer.querySelector("img");
@@ -78,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             playerImage.src = player.photo; // Mettre à jour la photo du joueur
             playerImage.alt = player.name;
+            handleImageError(playerImage, 'images/placeholder-card-normal.webp'); // Gérer l'erreur de chargement d'image
             playerPosition.textContent = player.name; // Afficher le nom du joueur dans la position
             selectedContainer.classList.remove("selected");
         } else {
@@ -88,14 +104,21 @@ document.addEventListener("DOMContentLoaded", () => {
     // Ajouter un événement de clic à chaque conteneur de joueur sur le terrain
     playerContainers.forEach((container) => {
         container.addEventListener("click", async () => {
-            // console.log("Player container clicked:", container.id);
             playerContainers.forEach((c) => c.classList.remove("selected")); // Désélectionner les autres
             container.classList.add("selected"); // Sélectionner l'élément actuel
 
             const position = container.querySelector(".place").textContent; // Obtenir la position actuelle
-            // console.log("Fetching players for position:", position);
-            const players = await fetchPlayers(); // Récupérer la liste des joueurs
+            const players = getPlayersFromLocalStorage(); // Récupérer la liste des joueurs depuis le localStorage
             displayPlayersInModal(players, position); // Afficher les joueurs dans le modal
+            modal.style.display = "flex"; // Afficher le modal
+        });
+    });
+
+    // Ajouter un événement de clic au bouton "plus" pour afficher tous les joueurs
+    Array.from(plusPlayerModal).forEach((plusButton) => {
+        plusButton.addEventListener("click", async () => {
+            const players = getPlayersFromLocalStorage(); // Récupérer la liste des joueurs depuis le localStorage
+            displayPlayersInModal(players); // Afficher tous les joueurs dans le modal
             modal.style.display = "flex"; // Afficher le modal
         });
     });
@@ -106,104 +129,55 @@ document.addEventListener("DOMContentLoaded", () => {
             modal.style.display = "none";
         }
     });
-    const playerModal = document.getElementById("playerModal");
-    const showPlayersBtn = document.getElementById("showPlayersBtn");
-    const playerList = document.getElementById("playerList");
-     // Récupérer les boutons "plus" dans la section "chang"
-     const plusButtons = document.querySelectorAll(".card-container .plus");
 
-     let selectedCardContainer = null; // Conteneur sélectionné dans "chang"
-
-     // Fonction pour gérer le clic sur les boutons "plus"
-     plusButtons.forEach((plusButton) => {
-         plusButton.addEventListener("click", async () => {
-             console.log("Bouton 'plus' cliqué !");
-
-             // Associer le conteneur parent au bouton cliqué
-             selectedCardContainer = plusButton.closest(".card-container");
-
-             // Récupérer les joueurs depuis l'API
-             const players = await fetchPlayers();
-
-             // Afficher les joueurs dans la fenêtre modale
-             displayPlayersInModal(players);
-
-             // Afficher le modal
-             modal.style.display = "flex";
-         });
-     });
-    
-
-    // Selectioner les elements de ajout
-    const addPlayerButton = document.getElementById("ajout");
-    const addPlayerModal = document.querySelector(".add-player-modal");
-    // Ouvrir le formulaire d'ajout de joueur
-    addPlayerButton.addEventListener("click", () => {   
+    addPlayerButton.addEventListener("click", () => {
         addPlayerModal.style.display = "flex";
-        });
+    });
+
     const addPlayerToLocalStorage = (player) => {
         // Vérifiez s'il y a déjà des joueurs dans localStorage
         let storedPlayers = JSON.parse(localStorage.getItem("players")) || [];
-        // Ajoutez le nouveau joueur à la liste
         storedPlayers.push(player);
         // Mettez à jour le localStorage
         localStorage.setItem("players", JSON.stringify(storedPlayers));
         console.log("Joueur ajouté à localStorage:", player);
     };
-// Ajouter un joueur avec les données du formulaire
-playerForm.addEventListener("submit", (event) => {
-    event.preventDefault();
 
-    // Récupérer les données du formulaire
-    const formData = new FormData(playerForm);
-    const newPlayer = {};
-    formData.forEach((value, key) => {
-        newPlayer[key] = value;
+    // Ajouter un joueur avec les données du formulaire
+    playerForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        // Récupérer les données du formulaire
+        const formData = new FormData(playerForm);
+        const newPlayer = {};
+        formData.forEach((value, key) => {
+            newPlayer[key] = value;
+        });
+
+        console.log("Nouveau joueur ajouté :", newPlayer);
+
+        // Sauvegarder le joueur dans localStorage
+        addPlayerToLocalStorage(newPlayer);
+
+        // Réinitialiser le formulaire et fermer la modale
+        playerForm.reset();
+        addPlayerModal.style.display = "none";
+
+        // Mettre à jour la liste des joueurs et afficher dans le modal
+        const players = getPlayersFromLocalStorage(); // Récupérer la liste des joueurs depuis le localStorage
+        displayPlayersInModal(players); // Afficher tous les joueurs dans le modal
     });
 
-    console.log("Nouveau joueur ajouté :", newPlayer);
-
-    // Sauvegarder le joueur dans localStorage
-    addPlayerToLocalStorage(newPlayer);
-
-    // Mettre à jour l'affichage des joueurs
-    loadPlayers();
-
-    // Réinitialiser le formulaire et fermer la modale
-    playerForm.reset();
-    addPlayerModal.style.display = "none";
-});
-
-// Charger les joueurs déjà enregistrés dans localStorage
- fetchPlayers = async () => {
-    try {
-        // Récupérer les joueurs de l'API
-        const response = await fetch("https://fut.codia-dev.com/players.json");
-        if (!response.ok) {
-            throw new Error("Erreur lors de la récupération des joueurs");
+    // Gérer le clic sur le bouton "Fermer" pour fermer la modale
+    button.addEventListener("click", () => {
+        const val = teamNameInput.value.trim();
+        if (val !== "") {
+            teamNameDisplay.textContent = val;
+        } else {
+            alert("Veuillez entrer un nom d'équipe.");
         }
-        const apiData = await response.json();
+    });
 
-        // Récupérer les joueurs locaux
-        const localPlayers = JSON.parse(localStorage.getItem("players")) || [];
-
-        // Combiner les deux listes
-        return apiData.players.concat(localPlayers);
-    } catch (error) {
-        console.error("Erreur :", error);
-        alert("Impossible de récupérer les joueurs. Veuillez réessayer.");
-        return JSON.parse(localStorage.getItem("players")) || []; // Retourne uniquement les joueurs locaux en cas d'échec
-    }
-};
-const loadPlayers = async () => {
-    const players = await fetchPlayers();
-    displayPlayersInModal(players); // Actualisez le modal
-};
-
-// Efface tous les éléments stockés dans le localStorage
-localStorage.clear();
-
-// Vérifiez que le localStorage est vide
-console.log("localStorage vidé :", localStorage);
-
+    // Récupérer les joueurs depuis l'API et les stocker dans le localStorage au chargement de la page
+    await fetchAndStorePlayers();
 });

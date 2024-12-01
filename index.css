@@ -45,8 +45,7 @@ header {
 
 .cont {
     display: flex;
-    margin-top: 60px;
-    gap: 300px;
+    margin-top: 7%;
 }
 
 .terrain {
@@ -56,7 +55,7 @@ header {
 
 .terrain img {
     max-width: 100%;
-    height: 95%;
+    height:105%;
     width: 100%;
 }
 
@@ -150,7 +149,7 @@ header {
     background-color: black;
     border-radius: 20px;
     opacity: 0.8;
-    height: 500px;
+    height: 100%;
     padding: 50px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: grid;
@@ -176,8 +175,8 @@ header {
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 70px;
-    max-height: 70px;
+    max-width: 60%;
+    max-height: 50%;
     opacity: 0.8;
     cursor: pointer;
 }
@@ -355,40 +354,36 @@ header {
     top: 25%;
     width: 800px; 
 }
-
+.jou{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 /* responsive */
-
 @media screen and (max-width: 768px) {
     .cont {
         display: grid;
-        grid-template-columns: 3fr;
-        margin-top: 20px;
-        gap: 95px;
+        grid-template-columns: 1fr;
+        margin-top: 7%;
     }
 
     .terrain {
         width: 100%;
         margin-top: 10%;
-
     }
 
     .chang {
         height: auto;
         padding: 20px;
         display: grid;
-        grid-template-columns: repeat(4,1fr);
+        grid-template-columns: repeat(4, 1fr);
         flex-wrap: wrap;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .team-name {
-        font-size: 18px;
     }
 
     .player-container {
         width: 80px;
-        height: 110px;
+        height: 90px;
     }
 
     .card-container {
@@ -396,21 +391,104 @@ header {
         height: 100px;
     }
 
-    .chang {
-        display: grid;
-        grid-template-columns:repeat(4,1fr);
-        flex-wrap: wrap;
-    }
     .modal-content {
-            width: 90%;
-            max-width: 90%;
-            height: auto;
-        }
-    
-        .player-card {
-            font-size: 0.8em;
-        }
-    
-    
+        width: 90%;
+        max-width: 90%;
+        height: auto;
+    }
+
+    .player-card {
+        font-size: 0.8em;
+    }
+
+    .add-player-modal .modal-content {
+        width: 90%;
+        padding: 10px;
+    }
+
+    .player-container {
+        width: 60px;
+        height: 70px;
+    }
+
+    .team-name {
+        font-size: 16px;
+    }
+
+    .btn {
+        padding: 5px;
+        margin-right: 20px;
+    }
+
+    header {
+        padding: 10px;
+        font-size: medium;
+    }
+
+    .head {
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center;
+    }
+
+    .mini-head {
+        width: 100%;
+    }
 }
 
+@media screen and (max-width: 320px) {
+    .team-name {
+        font-size: 14px;
+    }
+
+    .player-container {
+        width: 50px;
+        height: 60px;
+    }
+
+    .card-container {
+        width: 60px;
+        height: 80px;
+    }
+
+    .chang {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        flex-wrap: wrap;
+    }
+
+    .modal-content {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .player-card {
+        font-size: 0.7em;
+    }
+
+    .add-player-modal .modal-content {
+        width: 100%;
+        padding: 5px;
+    }
+
+    .btn {
+        padding: 3px;
+        margin-right: 10px;
+    }
+
+    header {
+        padding: 5px;
+        font-size: small;
+    }
+
+    .head {
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center;
+    }
+
+    .mini-head {
+        width: 100%;
+    }
+}

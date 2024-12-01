@@ -199,4 +199,11 @@ const loadPlayers = async () => {
     const players = await fetchPlayers();
     displayPlayersInModal(players); // Actualisez le modal
 };
+
+// Efface tous les éléments stockés dans le localStorage
+localStorage.clear();
+
+// Vérifiez que le localStorage est vide
+console.log("localStorage vidé :", localStorage);
+
 });
